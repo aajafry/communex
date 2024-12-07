@@ -45,10 +45,10 @@ export const CreateGroupFrom = ({ onClose }) => {
           ...(avatar ? { avatar } : {}),
         };
         const response = await axios.post(`${GROUP_URL}/create`, finalData, {
-      : true,
+          withCredentials: true,
         });
         if (response.status === 201) {
-          toast.success(response.data.message || "Group created successfully!");
+          toast.success(response.data.message || "Group created successfully.");
           onClose();
           reset();
         }
