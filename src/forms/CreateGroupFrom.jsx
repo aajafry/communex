@@ -1,6 +1,5 @@
 import { useApp } from "@/contexts";
 import { Form } from "@/shadcn/components/ui/form";
-import { getToken } from "@/utilities";
 import axios from "axios";
 import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -19,7 +18,6 @@ export const CreateGroupFrom = ({ onClose }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const { users } = useApp();
   const createFrom = useForm({});
-  const token = getToken();
 
   const {
     handleSubmit,
@@ -47,8 +45,7 @@ export const CreateGroupFrom = ({ onClose }) => {
           ...(avatar ? { avatar } : {}),
         };
         const response = await axios.post(`${GROUP_URL}/create`, finalData, {
-          // withCredentials: true,
-          headers: { Authorization: `Bearer ${token}` },
+      : true,
         });
         if (response.status === 201) {
           toast.success(response.data.message || "Group created successfully!");
@@ -63,7 +60,7 @@ export const CreateGroupFrom = ({ onClose }) => {
         );
       }
     },
-    [avatar, onClose, reset, token]
+    [avatar, onClose, reset]
   );
 
   return (
