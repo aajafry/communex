@@ -1,11 +1,10 @@
-import { io } from "socket.io-client";
 import { jwtDecode } from "jwt-decode";
+import { io } from "socket.io-client";
 import { toast } from "sonner";
-import { getToken } from "@/utilities";
 
-const BACKEND_URL = import.meta.env.VITE_BACKED;
+const SERVER_URL = import.meta.env.VITE_BACKED;
 
-const token = getToken();
+const token = localStorage.getItem("communex-auth-token");
 
 let decoded = null;
 if (token) {
@@ -16,7 +15,7 @@ if (token) {
   }
 }
 
-export const socket = io(BACKEND_URL, {
+export const socket = io(SERVER_URL, {
   autoConnect: false,
   query: {
     userId: decoded?.id,

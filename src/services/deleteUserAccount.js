@@ -1,13 +1,9 @@
-import axios from "axios";
+import { API } from "@/config";
 import { toast } from "sonner";
-
-const USER_URL = import.meta.env.VITE_USER;
 
 export const deleteUserAccount = async (navigate) => {
   try {
-    const response = await axios.delete(`${USER_URL}/delete`, {
-      withCredentials: true,
-    });
+    const response = await API.delete("/user/delete");
     if (response.status === 200) {
       toast.success(response.data.message || "User leave successful!");
       localStorage.removeItem("communex-auth-token");

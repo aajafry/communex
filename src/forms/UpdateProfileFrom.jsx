@@ -2,11 +2,9 @@ import { Form } from "@/shadcn/components/ui/form";
 import { InputField, SubmitButton, AvatarField } from "./components";
 import { useForm } from "react-hook-form";
 import { useEffect, useState } from "react";
-import axios from "axios";
 import { toast } from "sonner";
 import { useApp } from "@/contexts";
-
-const USER_URL = import.meta.env.VITE_USER;
+import { API } from "@/config";
 
 export const UpdateProfileFrom = ({ onClose }) => {
   const [avatar, setAvatar] = useState(null);
@@ -45,9 +43,7 @@ export const UpdateProfileFrom = ({ onClose }) => {
         ...data,
         ...(avatar ? { avatar } : {}),
       };
-      const response = await axios.put(`${USER_URL}/update`, updatedData, {
-        withCredentials: true,
-      });
+      const response = await API.put("/user/update", updatedData);
 
       if (response.status === 200) {
         toast.success("Profile updated successfully.");

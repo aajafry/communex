@@ -11,8 +11,6 @@ import {
   SubmitButton,
 } from "./components";
 
-const GROUP_URL = import.meta.env.VITE_GROUP;
-
 export const CreateGroupFrom = ({ onClose }) => {
   const [avatar, setAvatar] = useState(null);
   const [selectedUsers, setSelectedUsers] = useState([]);
@@ -44,9 +42,7 @@ export const CreateGroupFrom = ({ onClose }) => {
           ...data,
           ...(avatar ? { avatar } : {}),
         };
-        const response = await axios.post(`${GROUP_URL}/create`, finalData, {
-          withCredentials: true,
-        });
+        const response = await axios.post("/group/create", finalData);
         if (response.status === 201) {
           toast.success(response.data.message || "Group created successfully.");
           onClose();

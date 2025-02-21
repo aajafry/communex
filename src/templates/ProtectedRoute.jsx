@@ -5,7 +5,7 @@ export const ProtectedRoute = ({ children }) => {
   const token = getToken();
 
   if (!token) {
-    localStorage.removeItem("communexToken");
+    localStorage.removeItem("communex-auth-token");
     return <Navigate to="/authentication" replace />;
   } else {
     return children;

@@ -1,18 +1,10 @@
-import axios from "axios";
-
-const GROUP_URL = import.meta.env.VITE_GROUP;
+import { API } from "@/config";
 
 export const getGroupMessages = async (groupId, setter) => {
   try {
-    const response = await axios.post(
-      `${GROUP_URL}/getGroupMessages`,
-      {
-        id: groupId,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await API.post("/group/getGroupMessages", {
+      id: groupId,
+    });
 
     if (response.status === 200) {
       setter(response.data.messages || []);

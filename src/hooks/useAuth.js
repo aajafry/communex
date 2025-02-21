@@ -1,15 +1,15 @@
-import axios from "axios";
 import { useNavigate } from "react-router";
 import { toast } from "sonner";
-
-const AUTH_URL = import.meta.env.VITE_AUTH;
+import { API } from "@/config";
 
 export const useAuth = () => {
   const navigate = useNavigate();
 
   const signup = async (data) => {
     try {
-      const response = await axios.post(`${AUTH_URL}/signup`, data);
+      const response = await API.post("/auth/signup", data, {
+        withCredentials: false,
+      });
 
       if (response.status === 201) {
         toast.success(response.data.message || "User signup successful!");
@@ -26,9 +26,7 @@ export const useAuth = () => {
 
   const login = async (data) => {
     try {
-      const response = await axios.post(`${AUTH_URL}/login`, data, {
-        withCredentials: true,
-      });
+      const response = await API.post("/auth/login", data);
 
       if (response.status === 200) {
         toast.success(response.data.message || "Login successful!");
@@ -46,13 +44,7 @@ export const useAuth = () => {
 
   const logout = async () => {
     try {
-      const response = await axios.post(
-        `${AUTH_URL}/logout`,
-        {},
-        {
-          withCredentials: true,
-        }
-      );
+      const response = await API.post("/auth/logout", {});
       if (response.status === 200) {
         toast.success(response.data.message || "Logout successful!");
         localStorage.removeItem("communex-auth-token");

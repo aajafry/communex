@@ -1,16 +1,12 @@
-import { getToken } from "@/utilities";
-import axios from "axios";
+import { API } from "@/config";
 import {
-  useState,
-  useCallback,
-  useEffect,
-  useContext,
   createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
 } from "react";
 import { toast } from "sonner";
-
-const USER_URL = import.meta.env.VITE_USER;
-const GROUP_URL = import.meta.env.VITE_GROUP;
 
 const AppContext = createContext();
 
@@ -29,14 +25,11 @@ export const AppProvider = ({ children }) => {
   const [selectedChatData, setSelectedChatData] = useState({});
   // allowed selected chat type only [user || group]
   const [selectedChatType, setSelectedChatType] = useState("");
-
-  const token = getToken();
+  const token = localStorage.getItem("communex-auth-token");
 
   const handleGetUser = useCallback(async () => {
     try {
-      const response = await axios.get(`${USER_URL}/me`, {
-        withCredentials: true,
-      });
+      const response = await API.get("/user/me");
       if (response.status === 200) {
         setUser(response.data.user);
       }
@@ -51,9 +44,7 @@ export const AppProvider = ({ children }) => {
 
   const handleGetUsers = useCallback(async () => {
     try {
-      const response = await axios.get(`${USER_URL}/users`, {
-        withCredentials: true,
-      });
+      const response = await API.get("/user/users");
       if (response.status === 200) {
         setUsers(response.data.users);
       }
@@ -68,9 +59,7 @@ export const AppProvider = ({ children }) => {
 
   const handleGetUserGroups = useCallback(async () => {
     try {
-      const response = await axios.get(`${GROUP_URL}/getUserGroups`, {
-        withCredentials: true,
-      });
+      const response = await API.get("/group/getUserGroups");
       if (response.status === 200) {
         setGroups(response.data.groups);
       }

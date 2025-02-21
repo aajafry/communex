@@ -1,18 +1,10 @@
-import axios from "axios";
-
-const MESSAGE_URL = import.meta.env.VITE_MESSAGE;
+import { API } from "@/config";
 
 export const getUserMessages = async (recipientId, setter) => {
   try {
-    const response = await axios.post(
-      `${MESSAGE_URL}/messages`,
-      {
-        id: recipientId,
-      },
-      {
-        withCredentials: true,
-      }
-    );
+    const response = await API.post("/message/messages", {
+      id: recipientId,
+    });
     if (response.status === 200) {
       setter(response.data.messages || []);
     }
