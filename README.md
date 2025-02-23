@@ -50,12 +50,7 @@ This is the **frontend** for **CommuneX**, a real-time chat application built us
 Create a `.env` file in the root directory and add the following:
 
 ```env
-VITE_BACKED=http://localhost:3000
-VITE_AUTH=http://localhost:3000/auth
-VITE_USER=http://localhost:3000/user
-VITE_GROUP=http://localhost:3000/group
-VITE_MESSAGE=http://localhost:3000/message
-VITE_CLOUDINARY=http://localhost:3000/cloudinary
+VITE_BACKEND=http://localhost:3000
 VITE_CLOUDINARY_CLOUD_NAME=(set your cloudinary cloud name)
 VITE_CLOUDINARY_UPLOAD_PRESET=(set your cloudinary upload preset)
 ```
